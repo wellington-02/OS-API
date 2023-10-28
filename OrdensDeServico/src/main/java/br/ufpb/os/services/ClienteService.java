@@ -30,12 +30,7 @@ public class ClienteService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 
-//	@Autowired
-//	private BCryptPasswordEncoder encoder;
 
-	/*
-	 * Busca Cliente pelo ID
-	 */
 	public Cliente findById(Integer id) {
 		LOG.info("Service - BUSCANDO CLIENTE POR ID");
 		Optional<Cliente> obj = repository.findById(id);
@@ -43,17 +38,11 @@ public class ClienteService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 
-	/*
-	 * Busca todos os Clientes da base de dados
-	 */
 	public List<Cliente> findAll() {
 		LOG.info("Service - BUSCANDO TODOS OS CLIENTES DO BANCO");
 		return repository.findAll();
 	}
 
-	/*
-	 * Cria um Cliente
-	 */
 	public Cliente create(ClienteDTO objDTO) {
 		LOG.info("Service - CRIANDO NOVO CLIENTE");
 		if (findByCPF(objDTO) != null) {
@@ -61,18 +50,14 @@ public class ClienteService {
 		}
 
 		return repository.save(new Cliente(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getTelefone()));
-		//encoder.encode(objDTO.getSenha())));
 	}
 
-	/*
-	 * Atualiza um Cliente
-	 */
 	public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
 		LOG.info("Service - ATUALIZANDO CLIENTE");
 		Cliente oldObj = findById(id);
 
 		if (findByCPF(objDTO) != null && findByCPF(objDTO).getId() != id) {
-			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
+			throw new DataIntegratyViolationException("Id diferentes");
 		}
 
 		oldObj.setNome(objDTO.getNome());
@@ -81,23 +66,17 @@ public class ClienteService {
 		return repository.save(oldObj);
 	}
 
-	/*
-	 * Deleta um Cliente pelo ID
-	 */
 	public void delete(Integer id) {
 		LOG.info("Service - DELETANDO CLIENTE");
 		Cliente obj = findById(id);
 
 		if (obj.getList().size() > 0) {
-			throw new DataIntegratyViolationException("Pessoa possui Ordens de Serviço, não pode ser deletado!");
+			throw new DataIntegratyViolationException("Pessoa com o id:"
+					+id+" possui Ordens de Serviço, não pode ser deletada!");
 		}
-
 		repository.deleteById(id);
 	}
 
-	/*
-	 * Busca Cliente pelo CPF
-	 */
 	private Pessoa findByCPF(ClienteDTO objDTO) {
 		Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
 
