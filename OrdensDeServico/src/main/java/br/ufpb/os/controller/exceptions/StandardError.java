@@ -1,4 +1,4 @@
-package br.ufpb.os.resources.exceptions;
+package br.ufpb.os.controller.exceptions;
 
 import java.io.Serializable;
 

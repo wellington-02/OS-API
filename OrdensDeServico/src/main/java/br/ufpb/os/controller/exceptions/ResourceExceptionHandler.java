@@ -1,4 +1,4 @@
-package br.ufpb.os.resources.exceptions;
+package br.ufpb.os.controller.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

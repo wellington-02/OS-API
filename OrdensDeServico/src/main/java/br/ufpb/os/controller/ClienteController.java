@@ -1,4 +1,4 @@
-package br.ufpb.os.resources;
+package br.ufpb.os.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -21,41 +21,32 @@ import br.ufpb.os.services.ClienteService;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/clientes")
-public class ClienteResource {
+public class ClienteController {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(ClienteResource.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ClienteController.class);
 
 	@Autowired
 	private ClienteService service;
 
-	/*
-	 * Busca pelo ID
-	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
-		LOG.info("Resource - BUSCANDO CLIENTE POR ID");
+		LOG.info("Controller - BUSCANDO CLIENTE POR ID");
 		ClienteDTO objDTO = new ClienteDTO(service.findById(id));
 		return ResponseEntity.ok().body(objDTO);
 	}
 
-	/*
-	 * Lista todos objetos do tipo Cliente na base
-	 */
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll() {
-		LOG.info("Resource - BUSCANDO TODOS OS CLIENTES DO BANCO");
+		LOG.info("Controller - BUSCANDO TODOS OS CLIENTES DO BANCO");
 		List<ClienteDTO> listDTO = service.findAll().stream().map(obj -> new ClienteDTO(obj))
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok().body(listDTO);
 	}
 
-	/*
-	 * Cria um novo Cliente
-	 */
 	@PostMapping
 	public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO objDTO) {
-		LOG.info("Resource - CRIANDO NOVO CLIENTE");
+		LOG.info("Controller - CRIANDO NOVO CLIENTE");
 		Cliente newObj = service.create(objDTO);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
@@ -63,23 +54,16 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	/*
-	 * Atualiza um Cliente
-	 */
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO objDTO) {
-		LOG.info("Resource - ATUALIZANDO CLIENTE");
+		LOG.info("Controller - ATUALIZANDO CLIENTE");
 		ClienteDTO newObj = new ClienteDTO(service.update(id, objDTO));
 		return ResponseEntity.ok().body(newObj);
 	}
 
-	/*
-	 * Delete Cliente
-	 */
-//	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		LOG.info("Resource - DELETANDO CLIENTE");
+		LOG.info("Controller - DELETANDO CLIENTE");
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

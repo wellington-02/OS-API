@@ -1,4 +1,4 @@
-package br.ufpb.os.resources;
+package br.ufpb.os.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/os")
-public class OsResource {
+public class OsController {
 
 	@Autowired
 	private OsService service;

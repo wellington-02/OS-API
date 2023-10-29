@@ -4,7 +4,7 @@
 //import org.slf4j.LoggerFactory;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //
-//import com.valdir.os.resources.AuthResource;
+//import com.valdir.os.controller.AuthResource;
 //import com.valdir.os.security.UserSS;
 //
 //public class UserService {

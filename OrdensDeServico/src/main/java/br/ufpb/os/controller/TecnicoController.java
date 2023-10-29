@@ -1,4 +1,4 @@
-package br.ufpb.os.resources;
+package br.ufpb.os.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -21,7 +21,7 @@ import br.ufpb.os.services.TecnicoService;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/tecnicos")
-public class TecnicoResource {
+public class TecnicoController {
 
 	Logger log = LoggerFactory.getLogger(TecnicoService.class);
 	

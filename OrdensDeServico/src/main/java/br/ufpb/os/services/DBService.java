@@ -63,8 +63,5 @@ public class DBService {
 		c5.getList().add(os5);
 		c1.getList().add(os6);
 
-		tecnicoRepository.saveAll(Arrays.asList(t1, t2, t3, t4, t5));
-		clienteRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
-		osRepository.saveAll(Arrays.asList(os1, os2, os3, os4, os5, os6));
 	}
 }
